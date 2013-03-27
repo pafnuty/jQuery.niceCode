@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+	<head>
+		<meta charset="utf-8">
+		
+		<title>Плагин jQuery.niceCode</title>
+		<meta name="viewport" content="width=device-width">
+
+		<style>
+			/*Общие стили*/
+			html {
+				background: #f1f1f1;
+				}
+			body {
+				width: 960px;
+				padding: 20px;
+				margin: 20px auto;
+				font:normal 14px/18px Arial, Helvetica, sans-serif;
+				background: #fff;
+				box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.1);
+				color: #757575;
+				}
+			hr {
+				margin: 18px 0;
+				border: 0;
+				border-top: 1px solid #fff;
+				border-bottom: 1px solid #eee;
+			}
+			.preview {
+				display: block;
+				margin: 20px auto 40px;
+				max-width: 100%;
+			}
+			.descr {
+				font: normal 18px/24px "Trebuchet MS", Arial, Helvetica, sans-serif;
+				color: #666;
+				margin: 20px -20px;
+				padding: 20px;
+				background: #fafafa;
+				box-shadow: inset 0 10px 10px -10px rgba(0, 0, 0, 0.1), inset 0 -10px 10px -10px rgba(0, 0, 0, 0.1);
+				text-shadow: 0 1px 0 #fff;
+				}
+				b {
+					color: #f60;
+					}
+			.descr hr {
+				margin: 18px -20px;
+			}
+			.ta-center {
+				text-align: center;
+				}
+			a {
+				color: #f60;
+				}
+				a:hover {
+					text-decoration: none;
+					color: #06c;
+					}
+			.addPre {
+				line-height: 32px;
+				font-size: 100%;
+				margin: 0;
+				vertical-align: baseline;
+				*vertical-align: middle; 
+				-webkit-appearance: button; 
+				cursor: pointer; 
+				*overflow: visible;  
+				background: #f60;
+				color: #fff;
+				text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+				border: 0;
+				-webkit-border-radius: 3px;
+				-moz-border-radius: 3px;
+				border-radius: 3px;
+				padding: 0 15px;
+			}
+			.addPre:hover {
+				background: #06c;
+				-webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+				-moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+				box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+			}
+			article,
+			.gray {
+				color: #ccc;
+				}
+			h1, h2, h3, h4, h1 b, h2 b, h3 b, h4 b {
+				font-family: 'Ubuntu Condensed', sans-serif;
+				font-weight: normal;
+			}
+			h3 {
+				margin: 0;
+				}
+			h2.gray {
+				text-align: center;
+				margin: 3em 0 1em 0;
+				}
+			h1 {
+				line-height: 20px;
+				line-height: 28px;
+				}
+
+			.clr {clear: both; height: 0; overflow: hidden;}
+			li {
+				margin-bottom: 20px;
+				}
+			li li {
+				margin-bottom: 4px;
+				margin-top: 4px;
+			}
+			li.div, li li, li h3 {
+				color: #666;
+			}
+		   textarea {
+				width: 800px;
+				margin-bottom: 10px;
+				vertical-align: top;
+				-webkit-transition: height 0.2s;
+				-moz-transition: height 0.2s;
+				transition: height 0.2s;
+				outline: none;
+				display: block;
+				color: #444;
+				padding: 5px 10px;
+				font: normal 14px/20px Consolas,'Courier New',monospace;
+				background-color: #fff;
+				white-space: pre;
+				white-space: pre-wrap;
+				word-break: break-all;
+				word-wrap: break-word;
+				text-shadow: none;
+				border: 1px solid #eee;
+				border: 1px solid rgba(0, 0, 0, 0.1);
+				border-radius: 3px;
+				-webkit-box-shadow: 0 1px 1px rgba(255, 255, 255, 0.5),  inset 0 1px 1px rgba(0, 0, 0, 0.05);
+				-moz-box-shadow: 0 1px 1px rgba(255, 255, 255, 0.5),  inset 0 1px 1px rgba(0, 0, 0, 0.05);
+				box-shadow: 0 1px 1px rgba(255, 255, 255, 0.5),  inset 0 1px 1px rgba(0, 0, 0, 0.05);
+			}
+			textarea:focus {
+				background: #f1f1f1;
+				border-color: #f60;
+				-webkit-box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.5),  inset 0 1px 7px rgba(0, 0, 0, 0.3);
+				-moz-box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.5),  inset 0 1px 7px rgba(0, 0, 0, 0.3);
+				box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.5),  inset 0 1px 7px rgba(0, 0, 0, 0.3);
+			}
+		</style>
+		<style>
+			/*Стили для исх кода*/
+			pre.cn-pre {
+				background: #fdf6e3;
+				border-color: rgba(0,0,0,0.3);
+				border-style: solid;
+				border-width: 30px 2px 2px;
+				color: #586e75;
+				display: block;
+				font: normal 14px/20px Consolas,'Courier New',monospace;
+				padding: 20px;
+				margin:  20px;
+				position: relative;
+				text-shadow: 0 1px 1px #fff;
+				-webkit-border-radius: 5px;
+				border-radius: 5px;
+				-moz-box-shadow: inset 0 -1px 10px 0 rgba(0,0,0,0.1),inset 0 1px 0 0 rgba(0,0,0,0.5), 0 0 30px 0 rgba(255, 255, 255, 0.5);
+				box-shadow: inset 0 -1px 10px 0 rgba(0,0,0,0.1),inset 0 1px 0 0 rgba(0,0,0,0.5), 0 0 30px 0 rgba(255, 255, 255, 0.5);
+				white-space: pre;
+				white-space: pre-wrap;
+				word-break: break-all;
+				word-wrap: break-word;
+				}
+				pre.cn-pre::-moz-selection {
+					background: #073642;
+					text-shadow: 0 1px 1px #000;
+					color:  #fff;
+					}
+				pre.cn-pre::selection {
+					background: #073642;
+					text-shadow: 0 1px 1px #000;
+					color:  #fff;
+					}
+				pre.cn-pre:after {
+					color: #fff;
+					content: "Исходный код: " attr(data-text);
+					font: normal 16px/30px Consolas,'Courier New',monospace;
+					height: 30px;
+					left: 20px;
+					position: absolute;
+					right: 20px;
+					text-shadow: 0 1px 3px rgba(0,0,0,0.7);
+					top: -30px;
+					}
+				.cn-pre-wrap {
+					display: none;
+					position: fixed;
+					top: 0;
+					left: 0;
+					bottom: 0;
+					right: 0;
+					background: #323232; 
+					background: rgba(0, 0, 0, 0.8);
+					z-index: 9999;
+					}
+					.cn-pre-inner {
+						position: relative;
+						max-height: 100%;
+						overflow-y: auto;
+						-webkit-box-size: border-box;
+						-moz-box-size: border-box;
+						-ms-box-size: border-box;
+						-o-box-size: border-box;
+						box-size: border-box;
+						}
+					.cn-pre-close {
+						position: absolute;
+						top: 27px;
+						right: 30px;
+						font: bold 16px/20px Arial, sans-serif;
+						text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.7);
+						cursor: pointer;
+						}
+						.cn-pre-close:hover {
+							color: #f96;
+							text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.6);
+							}
+				.cn-pre-but {
+					cursor: pointer;
+					display: inline-block;
+					color: #fff;
+					background: #b0ac9e;
+					border-radius: 4px;
+					padding: 0 15px;
+					font: normal 14px/30px Consolas,'Courier New',monospace;
+					text-shadow: 0 1px 3px rgba(0,0,0,0.7);
+					-moz-box-shadow: inset 0 -4px 15px -4px rgba(0, 0, 0, 0.2), inset 0 3px 15px -3px rgba(255, 255, 255, 0.7);
+					box-shadow: inset 0 -4px 15px -4px rgba(0, 0, 0, 0.2), inset 0 3px 15px -3px rgba(255, 255, 255, 0.7);
+					border: solid 1px rgba(0, 0, 0, 0.4);
+					}
+					.cn-pre-but:hover {
+						-moz-box-shadow: inset 0 2px 10px -2px rgba(0, 0, 0, 0.2), inset 0 -3px 10px -3px rgba(255, 255, 255, 0.7);
+						box-shadow: inset 0 2px 10px -2px rgba(0, 0, 0, 0.2), inset 0 -3px 10px -3px rgba(255, 255, 255, 0.7);
+						}
+				pre code {
+					padding: 0;
+					color: inherit;
+					background-color: transparent;
+					border: 0;
+					font: normal 14px/20px Consolas,'Courier New',monospace;
+				} 
+		</style>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>')</script>
+		<script src="js/jquery.nicecode.min.js"></script>
+		<script>
+			jQuery(document).ready(function($) {
+				// Инициализация плагина показа красивого кода
+				$('.cn-pre').niceCode();
+
+				// Динамическое добавление нового кода	
+				$('.addPre').click(function() {
+					f = Math.round(Math.random()*10);
+
+					$('#newpre').append('<pre class="cn-pre" data-text="pre-'+f+'">Ещё немного кода ('+f+')</pre> ');
+					$('.cn-pre').niceCode();
+				});
+			});
+		</script>
+
+	</head>
+	<body>
+
+		<header role="banner">
+		<h1>Плагин jQuery.niceCode</h1>
+		<hr>
+		<b>Плагин может понадобится в следующих случаях:</b>
+		<ul>
+			<li>
+				При разработке нового сайта, для отладки скриптов, выводимых конструкциями вида: <pre>&lt;?echo "&lt;pre class='cn-pre' data-text='arResult'>"; print_r($arResult); echo "&lt;/pre>";?></pre>
+			</li>
+			<li>
+				Для удобной демонстрации больших простыней исходного кода посетителям сайта.
+			</li>
+			<li>
+				Для повышения ЧСВ разработчика :-)
+			</li>
+		</ul>
+	</header>
+		<section role="main">
+			<div class="descr">
+				<h2>Демонстрация работы</h2>
+				<pre class="cn-pre" data-text="pre">&lt;div> Исходный код pre &lt;/div></pre>
+
+				<pre class="cn-pre" data-text="pre>code"><code>&lt;div> Исходный код pre>code &lt;/div></code></pre>
+
+				<pre class="cn-pre">Исходный код без указания атрибута data-text</pre>
+
+				<pre class="cn-pre wrapped" data-text="pre-2">Это исходный код с классом wrpped - он не будет превращаться в кнопку.</pre>				
+				
+				<div id="newpre"></div>
+			</div>
+			<button class="addPre btn">Добавить ещё один pre</button>
+		</section>  
+		<hr>
+		<p>Демонстрацию подготовил: <a href="http://pafnuty.name/" target="_blank">ПафНутиЙ</a></p>
+	</body>
+</html>
