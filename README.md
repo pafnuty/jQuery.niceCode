@@ -4,6 +4,7 @@ jQuery.niceCode
 jQuery plugin for nice source code view
 
 Плагин jQuery.niceCode
+[демонстрация] (http://pafnuty.github.com/jQuery.niceCode/)
 
 Плагин может понадобится в следующих случаях:
 
